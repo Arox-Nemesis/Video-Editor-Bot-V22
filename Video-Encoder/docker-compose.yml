@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  video-encoder-bot:
+    build: .
+    container_name: telegram-video-encoder-bot
+    restart: unless-stopped
+    environment:
+      # Load environment variables from .env file
+      - API_ID=${API_ID}
+      - API_HASH=${API_HASH}
+      - BOT_TOKEN=${BOT_TOKEN}
+      - MAX_FILE_SIZE=${MAX_FILE_SIZE:-2147483648}
+      - PROCESSING_TIMEOUT=${PROCESSING_TIMEOUT:-300}
+      - DEBUG=${DEBUG:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      # Mount logs directory for persistence
+      - ./logs:/app/logs
+      # Mount temp directory for temporary files
+      - ./temp:/app/temp
+    networks:
+      - bot-network
+    # Resource limits for stability
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+
+networks:
+  bot-network:
+    driver: bridge
+
+volumes:
+  logs:
+    driver: local
+  temp:
+    driver: local
