@@ -6,10 +6,13 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     DEBIAN_FRONTEND=noninteractive
 
-# Install system dependencies
+# Install system dependencies + build tools for tgcrypto
 RUN apt-get update && apt-get install -y \
     ffmpeg \
     curl \
+    gcc \
+    build-essential \
+    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
