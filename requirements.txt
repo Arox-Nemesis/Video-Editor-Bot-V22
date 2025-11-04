@@ -1,4 +1,4 @@
 pyrogram==2.0.106
-pycryptodome
+tgcrypto==1.2.3
 pymongo
 python-dotenv
