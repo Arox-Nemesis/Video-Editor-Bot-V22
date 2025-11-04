@@ -1,5 +1,5 @@
 from pyrogram import Client
-from configs import API_ID, API_HASH, BOT_TOKEN
+from config import API_ID, API_HASH, BOT_TOKEN
 
 from bot.handlers import start, merge
 
